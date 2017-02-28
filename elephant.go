@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math/rand"
 	"time"
@@ -8,11 +9,21 @@ import (
 
 func main() {
 	var (
-		seqLength = 10
-		seed      = time.Now().UnixNano()
-		seq       = make([]int, seqLength)
-		i         int
+		seqLength uint
+		seed      int64
+		seq       []int
+		i         uint
 	)
+
+	flag.UintVar(&seqLength, "n", 10, "length of sequence to generate")
+	flag.Int64Var(&seed, "s", time.Now().UnixNano(), "seed for RNG")
+	flag.Parse()
+
+	if seqLength == 0 {
+		panic("Sequence length must be positive")
+	}
+
+	seq = make([]int, seqLength)
 	rand.Seed(seed)
 
 	// Initialise sequence.

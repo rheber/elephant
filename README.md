@@ -8,7 +8,13 @@ Run `go fmt && go build`.
 
 ## Usage
 
-Run `elephant`.
+Running `elephant` without flags seeds the RNG with the current time and generates a sequence of 10 digits.
+
+### Flags
+
+`-n` The length of the sequence to generate
+
+`-s` The seed value for the RNG
 
 ## Cleaning
 
