@@ -12,6 +12,7 @@ import (
 
 func main() {
 	var (
+		chunkSize  uint
 		seqLength  uint
 		seed       int64
 		seq        []byte
@@ -20,6 +21,7 @@ func main() {
 		err        error
 	)
 
+	flag.UintVar(&chunkSize, "c", 0, "size of chunks to break sequence into")
 	flag.UintVar(&seqLength, "n", 10, "length of sequence to generate")
 	flag.Int64Var(&seed, "s", time.Now().UnixNano(), "seed for RNG")
 	flag.Parse()
@@ -38,6 +40,9 @@ func main() {
 
 	// Print sequence.
 	for i = 0; i < seqLength; i++ {
+		if chunkSize > 0 && i%chunkSize == 0 {
+			fmt.Print(" ")
+		}
 		fmt.Printf("%c", seq[i])
 	}
 	fmt.Print("\nHit enter to continue...")

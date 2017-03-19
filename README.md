@@ -12,6 +12,8 @@ Running `elephant` without flags seeds the RNG with the current time and generat
 
 ### Flags
 
+`-c` The size of chunks to break the sequence into (0 to disable chunking)
+
 `-n` The length of the sequence to generate
 
 `-s` The seed value for the RNG
