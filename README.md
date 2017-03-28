@@ -18,6 +18,8 @@ Running `elephant` without flags seeds the RNG with the current time and generat
 
 `-s` The seed value for the RNG
 
+`-t` The time limit in seconds for memorising the sequence (no limit by default)
+
 ## Cleaning
 
 Run `go clean`.

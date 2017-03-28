@@ -12,9 +12,11 @@ import (
 
 func main() {
 	var (
-		chunkSize  uint
-		seqLength  uint
-		seed       int64
+		chunkSize uint
+		seqLength uint
+		seed      int64
+		timeLimit uint
+
 		seq        []byte
 		enteredSeq []byte
 		i          uint
@@ -24,6 +26,7 @@ func main() {
 	flag.UintVar(&chunkSize, "c", 0, "size of chunks to break sequence into")
 	flag.UintVar(&seqLength, "n", 10, "length of sequence to generate")
 	flag.Int64Var(&seed, "s", time.Now().UnixNano(), "seed for RNG")
+	flag.UintVar(&timeLimit, "t", 0, "time limit to memorise sequence")
 	flag.Parse()
 
 	if seqLength == 0 {
@@ -38,6 +41,7 @@ func main() {
 		seq[i] = '0' + byte(rand.Intn(10))
 	}
 
+	fmt.Println("Remember the sequence:")
 	// Print sequence.
 	for i = 0; i < seqLength; i++ {
 		if chunkSize > 0 && i%chunkSize == 0 {
@@ -45,8 +49,13 @@ func main() {
 		}
 		fmt.Printf("%c", seq[i])
 	}
-	fmt.Print("\nHit enter to continue...")
-	fmt.Scanln()
+
+	if timeLimit == 0 {
+		fmt.Print("\nHit enter to continue...")
+		fmt.Scanln()
+	} else {
+		time.Sleep(time.Second * time.Duration(timeLimit))
+	}
 
 	// Clear screen.
 	var cmd = exec.Command("clear")
